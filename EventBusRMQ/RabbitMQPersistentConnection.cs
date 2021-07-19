@@ -1,30 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RabbitMQ.Client;
 
 namespace EventBusRMQ
 {
     public class RabbitMQPersistentConnection : IDefaultPersistentConnection
     {
-        private IFactory factory;
+        private IConnectionFactory factory;
         private IConnection connection;
-        public RabbitMQPersistentConnection(IFactory factory) 
+        public RabbitMQPersistentConnection(IConnectionFactory factory) 
         {
             this.factory = factory;
-            
-        }
-        public bool IsConnected { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public IModel GetConnection()
-        {
-            throw new NotImplementedException();
+            Connected();
         }
 
-        private IConnection Connected() 
+        public IModel CreateModel()
         {
-            return 
+            return connection.CreateModel();
         }
+
+        private void  Connected() 
+        {
+            connection = factory.CreateConnection();
+        }
+
     }
 }

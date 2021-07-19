@@ -4,6 +4,6 @@ namespace EventBus.Abstractions
 {
     public interface IIntegrationEventHandler
     {
-        void Handler(IntegrationEvent @event);
+        void Handle(IntegrationEvent @event);
     }
 }
